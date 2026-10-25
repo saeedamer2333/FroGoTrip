@@ -147,8 +147,7 @@ We actively welcome affiliate networks, hotel chains, OTA partners, and tourism 
 - **Project Lead & Architecture:** Yousef Abu Al Atta (`sensayousef`)
 - **Backend & Integrations:** Saeed Alameri
 - **Business Development & Partnerships:** Zayed Fahad
-- **Website / Repository:** [https://github.com/sensayousef/FroGoTrip-Dev](https://github.com/sensayousef/FroGoTrip-Dev)
-- **Partnership Inquiries:** [partnerships@frogotrip.com](mailto:partnerships@frogotrip.com)
+- **Partnership Inquiries:** [saeedamerz200@gmail.com](mailto:saeedamerz200@gmail.com)
 - **Development Status:** Private Development (Beta Launch Q4 2026)
 
 ---
