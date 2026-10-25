@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FrogoTrip — AI-Powered Travel Itinerary & Smart Booking Platform</title>
+  <meta name="description" content="FrogoTrip generates personalized, budget-optimized day-by-day travel itineraries with seamless hotel, tour, and transit booking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #d1fae5;
+      --dark: #0f172a;
+      --dark-card: #1e293b;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg-light: #f8fafc;
+      --border: #e2e8f0;
+      --accent: #ff6900;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      background-color: #ffffff;
+      line-height: 1.6;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 50;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero {
+      padding: 4.5rem 1.5rem 3.5rem;
+      background: radial-gradient(circle at top right, #ecfdf5, #ffffff);
+      text-align: center;
+    }
+    .hero-container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #059669, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .partner-banner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: #f1f5f9;
+      border-radius: 12px;
+      max-width: 650px;
+      margin: 2rem auto 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #475569;
+    }
+    .partner-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .section {
+      padding: 4rem 1.5rem;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background: #0f172a;
+      color: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+    }
+    .timeline-card {
+      background: #1e293b;
+      border-radius: 14px;
+      padding: 1.5rem;
+      border: 1px solid #334155;
+    }
+    .stop-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid #334155;
+    }
+    .stop-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .stop-time {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #34d399;
+      min-width: 65px;
+    }
+    .stop-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .stop-desc {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+    .hotel-card {
+      background: white;
+      color: var(--dark);
+      border-radius: 14px;
+      padding: 1.75rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .hotel-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    .hotel-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0.5rem 0 1rem;
+    }
+    .btn-book {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #003580;
+      color: white;
+      font-weight: 600;
+      padding: 0.85rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .btn-book:hover {
+      background: #00224f;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.75rem;
+      margin-top: 2rem;
+    }
+    .feature-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .disclosure-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 3rem auto 0;
+      max-width: 900px;
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.7;
+    }
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+    footer a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span>🐸 FrogoTrip</span>
+        <span class="badge">Platform</span>
+      </a>
+      <span class="badge" style="background:#e0f2fe; color:#0284c7;">Affiliate Partner Ready</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-container">
+      <span class="badge">Next-Gen Travel Planning</span>
+      <h1 style="margin-top: 1rem;">Smart AI Itineraries.<br><span>Seamless Booking Handoffs.</span></h1>
+      <p>
+        FrogoTrip generates personalized, budget-optimized day-by-day travel itineraries in seconds, connecting high-intent travelers directly with trusted hotels on Booking.com, curated tours, and transit.
+      </p>
+
+      <div class="partner-banner">
+        <span>Affiliate Integrations:</span>
+        <div class="partner-badge">🏨 Booking.com</div>
+        <div class="partner-badge">🎟️ Viator / GetYourGuide</div>
+        <div class="partner-badge">✈️ Travelpayouts</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <h2>How FrogoTrip Works</h2>
+      <p>From initial travel inspiration to confirmed hotel and tour bookings</p>
+    </div>
+
+    <div class="preview-grid">
+      <div class="timeline-card">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1.25rem; color:#38bdf8;">📍 Day 2 in Tokyo — Activity Timeline</h3>
+        <div class="stop-item">
+          <div class="stop-time">09:00 AM</div>
+          <div>
+            <div class="stop-name">Meiji Jingu Shrine</div>
+            <div class="stop-desc">Cultural landmark & serene forest walk</div>
+          </div>
+        </div>
+        <div class="stop-item">
+          <div class="stop-time">12:30 PM</div>
+          <div>
+            <div class="stop-name">Afuri Harajuku (Lunch)</div>
+            <div class="stop-desc">Famous Yuzu Shio Ramen within budget</div>
+          </div>
+        </div>
+        <div class="stop-item">
+          <div class="stop-time">03:00 PM</div>
+          <div>
+            <div class="stop-name">Shibuya Sky Observatory</div>
+            <div class="stop-desc">360° panoramic city views</div>
+            <div style="margin-top:0.5rem;">
+              <span style="font-size:0.75rem; background:#047857; color:white; padding:0.2rem 0.5rem; border-radius:4px;">
+                🎟️ Viator / GetYourGuide Ticket
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-card">
+        <span class="hotel-tag">🏨 Centroid Match (0.8 km from stops)</span>
+        <h3 style="font-size:1.3rem; font-weight:700;">Shinjuku Granbell Hotel</h3>
+        <p style="font-size:0.85rem; color:#64748b; margin-top:0.25rem;">⭐ 4.5/5 (2,410 verified guest reviews)</p>
+        <div class="hotel-price">$110 <span style="font-size:0.85rem; font-weight:400; color:#64748b;">/ night (taxes included)</span></div>
+        <p style="font-size:0.85rem; color:#475569; margin-bottom:1.25rem;">
+          Optimal location calculated from your scheduled stops. Save 1.5 hours in transit daily.
+        </p>
+        <a href="https://www.booking.com" target="_blank" rel="noopener" class="btn-book">
+          Compare Prices on Booking.com →
+        </a>
+        <p style="font-size:0.75rem; text-align:center; color:#94a3b8; margin-top:0.75rem;">
+          Opens official Booking.com checkout with traveler dates pre-selected
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#f8fafc; border-radius: 20px;">
+    <div class="section-title">
+      <h2>Why Travel Partners Choose FrogoTrip</h2>
+      <p>Delivering high-converting, intent-driven bookings to leading OTAs</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>High-Intent Traffic</h3>
+        <p>Unlike casual travel blogs, FrogoTrip travelers plan with concrete dates, party sizes, and budgets. When they view accommodation suggestions, they are actively looking to book.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <h3>Geographic Stay Matching</h3>
+        <p>Our algorithm calculates the geographic centroid of each day's planned activities and presents hotel options right where the traveler will actually spend their days.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">👛</div>
+        <h3>Budget Optimization</h3>
+        <p>40/30/20/10 budget allocation across lodging, food, experiences, and transit ensures travelers select hotel tiers that match their target spending limit.</p>
+      </div>
+    </div>
+
+    <div class="disclosure-box">
+      <strong>🛡️ Partner Disclosure & Ethical Affiliate Policy:</strong><br>
+      FrogoTrip participates in affiliate partner programs, including Travelpayouts and Booking.com. All reservations, card handling, and booking confirmations are executed directly on official partner domains. FrogoTrip does not add booking fees or mark up prices, ensuring complete price parity and customer trust.
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>FrogoTrip 🐸 — AI-Powered Trip Planning & Booking Platform</strong></p>
+    <p style="margin-top: 0.5rem;">Cross-platform mobile & web applications powered by Flutter, NestJS & OpenAI.</p>
+    <p style="margin-top: 1rem; font-size: 0.8rem;">
+      Partner Inquiries: <a href="mailto:partnerships@frogotrip.com">partnerships@frogotrip.com</a> · GitHub: <a href="https://github.com/saeedamer2333/FroGoTrip">saeedamer2333/FroGoTrip</a>
+    </p>
+  </footer>
+
+</body>
+</html>
